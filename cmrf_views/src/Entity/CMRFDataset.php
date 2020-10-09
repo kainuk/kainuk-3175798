@@ -28,6 +28,15 @@ use Drupal\Core\Config\Entity\ConfigEntityBase;
  *     "label" = "label",
  *     "uuid" = "uuid"
  *   },
+ *   config_export = {
+ *     "id",
+ *     "label",
+ *     "connector",
+ *     "entity",
+ *     "action",
+ *     "getcount",
+ *     "params"
+ *   },
  *   links = {
  *     "canonical" = "/admin/config/cmrf/dataset/{cmrf_dataset}",
  *     "add-form" = "/admin/config/cmrf/dataset/add",
