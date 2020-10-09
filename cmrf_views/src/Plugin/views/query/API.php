@@ -175,23 +175,26 @@ class API extends QueryPluginBase {
       $options['cache'] = empty($view->query->options['cache']) ? NULL : $view->query->options['cache'];
       $options['limit'] = 0;
 
-      // Count API call.
-      $call = $this->core->createCall($connector, $api_entity, $api_count_action, $parameters, $options);
-      $this->core->executeCall($call);
-      if ($call->getStatus() == Call::STATUS_DONE) {
-        $result = $call->getReply();
-        if (!empty($result['result'])) {
-          $view->getPager()->total_items = $result['result'];
-          $view->total_rows              = $result['result'];
+      if($view->getPager()->useCountQuery()) {
+        // Count API call.
+        $call = $this->core->createCall($connector, $api_entity, $api_count_action, $parameters, $options);
+        $this->core->executeCall($call);
+        if ($call->getStatus() == Call::STATUS_DONE) {
+          $result = $call->getReply();
+          if (!empty($result['result'])) {
+            $view->getPager()->total_items = $result['result'];
+            $view->total_rows = $result['result'];
+          }
         }
+
+        // Update pager.
+        $view->getPager()->updatePageInfo();
+
+        // TODO: verify views cache.
+        $options['limit'] = $view->getPager()->getItemsPerPage();
+        $options['offset'] = $view->getCurrentPage() * $view->getPager()
+            ->getItemsPerPage();
       }
-
-      // Update pager.
-      $view->getPager()->updatePageInfo();
-
-      // TODO: verify views cache.
-      $options['limit']  = $view->getPager()->getItemsPerPage();
-      $options['offset'] = $view->getCurrentPage() * $view->getPager()->getItemsPerPage();
 
       // View result init.
       $view->result = [];
