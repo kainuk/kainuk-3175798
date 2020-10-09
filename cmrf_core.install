@@ -1,6 +1,4 @@
 <?php
-require_once dirname(__FILE__).'/vendor/autoload.php';
-
 function cmrf_core_schema() {
   $array=array();
   $array['civicrm_api_call']=\CMRF\PersistenceLayer\SQLPersistingCallFactory::schema();
