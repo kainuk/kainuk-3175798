@@ -13,7 +13,7 @@
         "source": "http://cgit.drupalcode.org/cmrf_core"
     },
     "require": {
-        "kainuk/cmrf_abstract_core": "dev-master",
+        "kainuk/cmrf_abstract_core": "^0.6.0",
         "mossadal/math-parser": "dev-master"
     }
 }
